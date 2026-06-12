@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Edwin Choi</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main>
+    <section class="intro" aria-live="polite">
+      <p class="labels" role="tablist" aria-label="About">
+        <button type="button" class="label active" role="tab" aria-selected="true" aria-controls="panel-who" id="tab-who" data-tab="who">Who</button>
+        <button type="button" class="label" role="tab" aria-selected="false" aria-controls="panel-what" id="tab-what" data-tab="what">What</button>
+        <button type="button" class="label" role="tab" aria-selected="false" aria-controls="panel-why" id="tab-why" data-tab="why">Why</button>
+      </p>
+      <div class="panel-stack">
+        <div class="panel active" id="panel-who" role="tabpanel" aria-labelledby="tab-who">
+          <p>I'm Edwin, and this is a space to share my visual wanderings for quiet presence. Reach out if you'd like to say hi, share work, or expand each other's way of creatively experiencing the world. <a href="mailto:edwinchoi.design@gmail.com">edwinchoi.design@gmail.com</a></p>
+          <div class="social-icons">
+            <a class="social-icon" href="https://www.linkedin.com/in/edchoi1" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 2h-17A1.5 1.5 0 002 3.5v17A1.5 1.5 0 003.5 22h17a1.5 1.5 0 001.5-1.5v-17A1.5 1.5 0 0020.5 2zM8 19H5v-9h3zM6.5 8.25A1.75 1.75 0 118.3 6.5a1.78 1.78 0 01-1.8 1.75zM19 19h-3v-4.64c0-1.11-.02-2.53-1.54-2.53-1.54 0-1.78 1.2-1.78 2.45V19h-3v-9h2.89v1.23h.04a3.17 3.17 0 012.85-1.57c3.05 0 3.61 2.01 3.61 4.62V19z"/></svg>
+            </a>
+            <a class="social-icon" href="https://www.instagram.com/edwinchoi.art" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+            </a>
+          </div>
+        </div>
+        <div class="panel" id="panel-what" role="tabpanel" aria-labelledby="tab-what" aria-hidden="true">
+          <p>I want to capture the impermanence of charcoal powder resting on paper, lines that could disappear, light washes that blend. Napping in the park with others. Blue hour where the city and light blur into each other. Stepping into untouched morning snow. First coffee of the day. A place for introspection, if you want it. Or a place to simply be, if you don't.</p>
+        </div>
+        <div class="panel" id="panel-why" role="tabpanel" aria-labelledby="tab-why" aria-hidden="true">
+          <p>By day, I <a href="https://portfolio-2026-rho-dusky.vercel.app/" target="_blank" rel="noopener noreferrer">design healthcare products</a> to improve people's well-being. By night, I study <a href="https://publichealth.jhu.edu/academics/drph/curriculum/concentration-in-health-policy-and-management/public-health-informatics-track" target="_blank" rel="noopener noreferrer">public health informatics</a> to use the design process to shape better healthcare systems. I needed a place inbetween. Here, I draw, so that I can have an unfinished (by design) playground of evolving visual experiments, following the pursuit of quiet presence wherever it goes.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="gallery" aria-label="Artwork">
+      <div class="gallery-item gallery-item--expandable">
+        <div class="gallery-item__hero-wrap">
+          <figure class="piece-figure piece-figure--hero">
+            <img class="gallery-item__hero" src="pieces/2026.may.29 coffee final.jpg" alt="">
+            <figcaption class="piece-caption">I wanted to start capturing moments in my own day where I felt calm. This is from a photo I took while having a coffee in prenzlauer berg in Berlin, while waiting for the art store to open. I had a lot of time to relax.</figcaption>
+          </figure>
+        </div>
+        <div class="process-images" aria-hidden="true">
+          <figure class="process-figure" style="--process-index: 0">
+            <img src="pieces/2026.may.29 coffee 1.jpg" alt="">
+            <figcaption class="piece-caption">I made a colored outline of the scene using pastel pencil</figcaption>
+          </figure>
+          <figure class="process-figure" style="--process-index: 1">
+            <img src="pieces/2026.may.29 coffee 2.jpg" alt="">
+            <figcaption class="piece-caption">Next I tried putting a light complementary color watercolor wash</figcaption>
+          </figure>
+          <figure class="process-figure" style="--process-index: 2">
+            <img src="pieces/2026.may.29 coffee 3.jpg" alt="">
+            <figcaption class="piece-caption">Then I used sandpaper to make color powder from the pastel pencils</figcaption>
+          </figure>
+          <figure class="process-figure" style="--process-index: 3">
+            <img src="pieces/2026.may.29 coffee 4.jpg" alt="">
+            <figcaption class="piece-caption">Finally, I go in with an eraser and pull out the lights</figcaption>
+          </figure>
+        </div>
+      </div>
+      <img src="pieces/sketch_full.jpg" alt="">
+      <img src="pieces/edwin-choi-mountains-n-stuff.jpg" alt="">
+      <img src="pieces/suit.jpg" alt="">
+      <img src="pieces/sitting.jpg" alt="">
+      <img src="pieces/elemental rain gurl.jpg" alt="">
+      <img src="pieces/Copy of onion watercolor.jpg" alt="">
+      <img src="pieces/careplans.jpg" alt="">
+      <img src="pieces/houzesmal.jpg" alt="">
+      <img src="pieces/ilya face.jpg" alt="">
+      <img src="pieces/Untitled-1.jpg" alt="">
+      <img src="pieces/2 (1).jpg" alt="">
+      <img src="pieces/hand2.JPG" alt="">
+      <img src="pieces/e1.JPG" alt="">
+      <img src="pieces/z23.jpg" alt="">
+      <img src="pieces/tumblr_nz2l24iIbw1sve4u5o1_r4_1280.jpg" alt="">
+      <img src="pieces/little_bro_by_rex_craft7-d65qy7e.jpg" alt="">
+      <img src="pieces/sdgsdg.jpg" alt="">
+    </section>
+  </main>
+
+  <script src="script.js" defer></script>
+</body>
+</html>
