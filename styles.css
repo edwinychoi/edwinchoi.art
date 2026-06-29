@@ -205,13 +205,14 @@ body {
 .panel a {
   color: #2d2d2d;
   text-decoration: none;
-  border-bottom: 1px solid #c4c4c4;
-  transition: color 0.25s ease, border-color 0.25s ease;
+  border-bottom: 1px solid #7a7a7a;
+  transition: color 0.2s ease, border-color 0.2s ease;
 }
 
-.panel a:hover {
-  color: #1a1a1a;
-  border-color: #7a7a7a;
+.panel a:hover,
+.panel a:focus-visible {
+  color: #000;
+  border-bottom-color: #000;
 }
 
 .social-icons {
@@ -430,8 +431,8 @@ body {
   }
 
   .intro {
-    padding: 1.75rem 1.25rem 4rem;
-    min-height: 100vh;
+    padding: 1.75rem 1.25rem 3.5rem;
+    min-height: 100svh;
     opacity: 1;
     animation: none;
   }
@@ -457,7 +458,11 @@ body {
   }
 
   .scroll-cue {
-    bottom: 1.5rem;
+    position: fixed;
+    bottom: calc(1.25rem + env(safe-area-inset-bottom, 0px));
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
   }
 
   .gallery {
