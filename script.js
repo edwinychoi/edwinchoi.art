@@ -187,15 +187,15 @@ const CONTENT = {
     <p>I'm Edwin, and this is a space to share my attempts at exploring quiet presence through drawing. If you'd like to share ideas, trade art, or simply connect, I'd love to hear from you.</p>
     <a class="contact-email" href="mailto:edwinchoi.design@gmail.com">edwinchoi.design@gmail.com</a>
     <div class="social-row">
-      <a href="#" aria-label="LinkedIn">${LINKEDIN_SVG}</a>
-      <a href="#" aria-label="Instagram">${INSTAGRAM_SVG}</a>
+      <a href="https://www.linkedin.com/in/edchoi1" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">${LINKEDIN_SVG}</a>
+      <a href="https://www.instagram.com/edwinchoi.art" target="_blank" rel="noopener noreferrer" aria-label="Instagram">${INSTAGRAM_SVG}</a>
     </div>
   `,
   what: `
     <p>Blue hour where city and sky melt into each other. The sound of flakes landing as you step into the deep stillness of untouched snow. A flowing stream, always changing but still the same. I want to visualize this feeling that's both peace and aliveness. Lines that disappear, powder that lightly rests on paper, colors that blend. A place for introspection if you want it. Or if you don't, then a place to simply be.</p>
   `,
   why: `
-    <p>By day, I <a href="#">design healthcare products</a> to improve people's well-being. By night, I study <a href="#">public health informatics</a> so I can use design to improve healthcare systems. I needed a place in between. Here, I draw to express a feeling that words or data can't quite explain. I'm curious where exploring quiet presence through drawing takes me.</p>
+    <p>By day, I <a href="https://edwinchoi.design/" target="_blank" rel="noopener noreferrer">design healthcare products</a> to improve people's well-being. By night, I study <a href="https://publichealth.jhu.edu/academics/drph/curriculum/concentration-in-health-policy-and-management/public-health-informatics-track" target="_blank" rel="noopener noreferrer">public health informatics</a> so I can use design to improve healthcare systems. I needed a place in between. Here, I draw to express a feeling that words or data can't quite explain. I'm curious where exploring quiet presence through drawing takes me.</p>
   `,
 };
 
