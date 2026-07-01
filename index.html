@@ -1,72 +1,55 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="fonts-loading">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Edwin Choi</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,300&display=block" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
+  <script>
+    (function () {
+      function markFontsReady() {
+        document.documentElement.classList.remove("fonts-loading");
+        document.documentElement.classList.add("fonts-ready");
+      }
+
+      if (!document.fonts) {
+        markFontsReady();
+        return;
+      }
+
+      Promise.race([
+        document.fonts.load('300 italic 16px "Cormorant Garamond"'),
+        new Promise(function (resolve) { setTimeout(resolve, 2000); }),
+      ]).then(markFontsReady);
+    })();
+  </script>
 </head>
 <body>
-  <main>
-    <section class="intro" aria-live="polite">
-      <div class="intro__content">
-        <p class="labels" role="tablist" aria-label="About">
-          <button type="button" class="label active" role="tab" aria-selected="true" aria-controls="panel-who" id="tab-who" data-tab="who">Who</button>
-          <button type="button" class="label" role="tab" aria-selected="false" aria-controls="panel-what" id="tab-what" data-tab="what">What</button>
-          <button type="button" class="label" role="tab" aria-selected="false" aria-controls="panel-why" id="tab-why" data-tab="why">Why</button>
-        </p>
-        <div class="panel-stack">
-        <div class="panel active" id="panel-who" role="tabpanel" aria-labelledby="tab-who">
-          <p>I'm Edwin, and this is a space to share my attempts at exploring quiet presence through drawing. If you'd like to share ideas, trade art, or simply connect, I'd love to hear from you. <a href="mailto:edwinchoi.design@gmail.com">edwinchoi.design@gmail.com</a></p>
-          <div class="social-icons">
-            <a class="social-icon" href="https://www.linkedin.com/in/edchoi1" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
-              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 2h-17A1.5 1.5 0 002 3.5v17A1.5 1.5 0 003.5 22h17a1.5 1.5 0 001.5-1.5v-17A1.5 1.5 0 0020.5 2zM8 19H5v-9h3zM6.5 8.25A1.75 1.75 0 118.3 6.5a1.78 1.78 0 01-1.8 1.75zM19 19h-3v-4.64c0-1.11-.02-2.53-1.54-2.53-1.54 0-1.78 1.2-1.78 2.45V19h-3v-9h2.89v1.23h.04a3.17 3.17 0 012.85-1.57c3.05 0 3.61 2.01 3.61 4.62V19z"/></svg>
-            </a>
-            <a class="social-icon" href="https://www.instagram.com/edwinchoi.art" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
-              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
-            </a>
-          </div>
-        </div>
-        <div class="panel" id="panel-what" role="tabpanel" aria-labelledby="tab-what" aria-hidden="true">
-          <p>Blue hour where city and sky melt into each other. The sound of flakes landing as you step into the deep stillness of untouched snow. A flowing stream, always changing but still the same. I want to visualize this feeling that's both peace and aliveness. Lines that disappear, powder that lightly rests on paper, colors that blend. A place for introspection if you want it. Or if you don't, then a place to simply be.</p>
-        </div>
-        <div class="panel" id="panel-why" role="tabpanel" aria-labelledby="tab-why" aria-hidden="true">
-          <p>By day, I <a href="https://edwinchoi.design/" target="_blank" rel="noopener noreferrer">design healthcare products</a> to improve people's well-being. By night, I study <a href="https://publichealth.jhu.edu/academics/drph/curriculum/concentration-in-health-policy-and-management/public-health-informatics-track" target="_blank" rel="noopener noreferrer">public health informatics</a> so I can use design to improve healthcare systems. I needed a place in between. Here, I draw to express a feeling that words or data can't quite explain. I'm curious where exploring quiet presence through drawing takes me.</p>
-        </div>
+  <div id="viewport">
+    <div id="board">
+      <div id="image-layer" aria-hidden="true"></div>
+      <div id="center-panel">
+        <div id="text-stack" class="text-stack">
+          <nav id="nav" aria-label="Sections">
+            <button type="button" class="nav-btn active" data-section="who">Who</button>
+            <span class="nav-dot" aria-hidden="true">·</span>
+            <button type="button" class="nav-btn" data-section="what">What</button>
+            <span class="nav-dot" aria-hidden="true">·</span>
+            <button type="button" class="nav-btn" data-section="why">Why</button>
+          </nav>
+          <div id="content-area"></div>
         </div>
       </div>
-      <a class="scroll-cue" href="#gallery" aria-label="Scroll to artwork">
-        <span>scroll</span>
-        <svg class="scroll-cue__arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M6 13l6 6 6-6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </a>
-    </section>
+    </div>
+  </div>
 
-    <section class="gallery" id="gallery" aria-label="Artwork">
-      <img src="pieces/2026.may.29 coffee final.jpg" alt="" data-process="coffee">
-      <img src="pieces/sketch_full.jpg" alt="">
-      <img src="pieces/edwin-choi-mountains-n-stuff.jpg" alt="">
-      <img src="pieces/suit.jpg" alt="">
-      <img src="pieces/sitting.jpg" alt="">
-      <img src="pieces/elemental rain gurl.jpg" alt="">
-      <img src="pieces/Copy of onion watercolor.jpg" alt="">
-      <img src="pieces/careplans.jpg" alt="">
-      <img src="pieces/houzesmal.jpg" alt="">
-      <img src="pieces/ilya face.jpg" alt="">
-      <img src="pieces/Untitled-1.jpg" alt="">
-      <img src="pieces/2 (1).jpg" alt="">
-      <img src="pieces/hand2.JPG" alt="">
-      <img src="pieces/e1.JPG" alt="">
-      <img src="pieces/z23.jpg" alt="">
-      <img src="pieces/tumblr_nz2l24iIbw1sve4u5o1_r4_1280.jpg" alt="">
-      <img src="pieces/little_bro_by_rex_craft7-d65qy7e.jpg" alt="">
-      <img src="pieces/sdgsdg.jpg" alt="">
-    </section>
-  </main>
-
-  <div class="lightbox" id="lightbox" aria-hidden="true" role="dialog" aria-label="Artwork">
+  <div class="lightbox" id="lightbox" aria-hidden="true" role="dialog" aria-label="Process">
     <div class="lightbox__content"></div>
   </div>
 
-  <script src="script.js" defer></script>
+  <script src="script.js"></script>
 </body>
 </html>
