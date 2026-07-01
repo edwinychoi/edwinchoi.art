@@ -1,10 +1,10 @@
-const VOID_WIDTH = 560;
+﻿const VOID_WIDTH = 560;
 const VOID_HEIGHT = 660;
 const GUTTER = 40;
 const VOID_MARGIN = 80;
 const OUTER_PADDING = 120;
 
-// Clockwise from top — matches reference moodboard layout
+// Clockwise from top â€” matches reference moodboard layout
 const GALLERY_IMAGES = [
   "gallery_street_main.jpg",
   "gallery_harrypotter_main.jpg",
@@ -38,6 +38,42 @@ const GALLERY_IMAGES = [
   "gallery_landscape_main.jpg",
   "gallery_tea_main.jpg",
 ];
+
+const IMAGE_DIMENSIONS = {
+  "gallery_street_main.jpg": { w: 3840, h: 2211 },
+  "gallery_harrypotter_main.jpg": { w: 1920, h: 2560 },
+  "gallery_wall_main.jpg": { w: 2560, h: 1920 },
+  "gallery_suitguy_main.jpg": { w: 2160, h: 2880 },
+  "gallery_treeshadows_main.jpg": { w: 2560, h: 1920 },
+  "gallery_venice_main.jpg": { w: 1920, h: 2560 },
+  "gallery_guitar_main.jpg": { w: 3200, h: 4000 },
+  "gallery_medical_main.png": { w: 1049, h: 1591 },
+  "gallery_cafecolor_main.jpg": { w: 1920, h: 2560 },
+  "gallery_cafecolors_main.jpg": { w: 2560, h: 1920 },
+  "gallery_portrait_main.jpg": { w: 1920, h: 2400 },
+  "gallery_cafegirl_main.jpg": { w: 1298, h: 1730 },
+  "gallery_handpulling_main.jpg": { w: 695, h: 887 },
+  "gallery_onion_main.jpg": { w: 2002, h: 2802 },
+  "gallery_sittingguy_main.jpg": { w: 2392, h: 2160 },
+  "gallery_sketch_main.jpg": { w: 1913, h: 1913 },
+  "gallery_berlincafe_main.jpg": { w: 1920, h: 2560 },
+  "gallery_tower_main.jpg": { w: 4500, h: 4500 },
+  "gallery_cafelight_main.jpg": { w: 1920, h: 2560 },
+  "gallery_room_main.jpg": { w: 1920, h: 2560 },
+  "gallery_citylights_main.jpg": { w: 1920, h: 2560 },
+  "gallery_carlights_main.jpg": { w: 1920, h: 2560 },
+  "gallery_cult_main.jpg": { w: 1920, h: 2560 },
+  "gallery_mountains_main.jpg": { w: 1500, h: 659 },
+  "gallery_bus_main.jpg": { w: 2560, h: 1920 },
+  "gallery_profile_main.jpg": { w: 1000, h: 1500 },
+  "gallery_hands_main.JPG": { w: 1281, h: 1710 },
+  "gallery_space_main.jpg": { w: 1920, h: 2560 },
+  "gallery_kingsgarden_main.jpg": { w: 2560, h: 1920 },
+  "gallery_landscape_main.jpg": { w: 2560, h: 1920 },
+  "gallery_tea_main.jpg": { w: 1280, h: 1396 },
+};
+
+const IMAGE_DIR = "pieces/";
 
 const ALL_GALLERY_FILES = new Set([
   "gallery_berlincafe_1.jpg",
@@ -105,7 +141,7 @@ const ALL_GALLERY_FILES = new Set([
   "gallery_wall_main.jpg",
 ]);
 
-// Center offsets (dx, dy) for each image in GALLERY_IMAGES — tuned to reference screenshot
+// Center offsets (dx, dy) for each image in GALLERY_IMAGES â€” tuned to reference screenshot
 const IMAGE_LAYOUT_OFFSETS = [
   { x: -80, y: -350 },
   { x: 40, y: -340 },
@@ -244,27 +280,22 @@ function scaleToDisplaySize(naturalW, naturalH) {
   return { w, h };
 }
 
-function loadImageSize(src) {
-  return new Promise((resolve, reject) => {
-    const img = new Image();
-    img.onload = () => resolve({ w: img.naturalWidth, h: img.naturalHeight });
-    img.onerror = reject;
-    img.src = src;
-  });
+function boardImageSrc(filename) {
+  return filename.replace(/(\.[^.]+)$/, "_thumbnail$1");
 }
 
-async function loadAllImageSizes() {
-  return Promise.all(
-    GALLERY_IMAGES.map(async (filename) => {
-      try {
-        const { w: naturalW, h: naturalH } = await loadImageSize(`pieces/${filename}`);
-        const { w, h } = scaleToDisplaySize(naturalW, naturalH);
-        return { filename, w, h, naturalW, naturalH };
-      } catch {
-        return { filename, w: 220, h: 280, naturalW: 220, naturalH: 280 };
-      }
-    })
-  );
+function galleryImageSrc(filename) {
+  return `${IMAGE_DIR}${filename}`;
+}
+
+function getGalleryImageSizes() {
+  return GALLERY_IMAGES.map((filename) => {
+    const dims = IMAGE_DIMENSIONS[filename];
+    const naturalW = dims?.w ?? 220;
+    const naturalH = dims?.h ?? 280;
+    const { w, h } = scaleToDisplaySize(naturalW, naturalH);
+    return { filename, w, h, naturalW, naturalH };
+  });
 }
 
 function rectsOverlap(a, b, gap) {
@@ -475,7 +506,7 @@ function layoutFixedOrder(imageSizes) {
 async function layoutImages() {
   imageLayer.innerHTML = "";
 
-  const imageSizes = await loadAllImageSizes();
+  const imageSizes = getGalleryImageSizes();
   const { boardSize, placements, bounds } = layoutFixedOrder(imageSizes);
   BOARD_SIZE = boardSize;
   contentBounds = bounds;
@@ -493,7 +524,7 @@ async function layoutImages() {
     tile.style.height = `${placement.h}px`;
 
     const img = document.createElement("img");
-    img.src = `pieces/${placement.filename}`;
+    img.src = `${IMAGE_DIR}${boardImageSrc(placement.filename)}`;
     img.dataset.filename = placement.filename;
     img.alt = "";
     img.width = placement.w;
@@ -612,7 +643,7 @@ function buildLightboxPiece(filename, caption) {
   figure.className = "lightbox__piece";
 
   const img = document.createElement("img");
-  img.src = `pieces/${filename}`;
+  img.src = galleryImageSrc(filename);
   img.alt = caption || "";
   figure.appendChild(img);
 
@@ -971,12 +1002,14 @@ async function init() {
   setActiveSection("who");
   if (document.fonts) {
     await document.fonts.ready;
-    alignTextStack();
   }
+  alignTextStack();
   initInteraction();
   initLightbox();
   initNav();
   window.addEventListener("resize", onResize);
+  document.documentElement.classList.add("app-ready");
 }
 
 init();
+
