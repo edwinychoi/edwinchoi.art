@@ -33,7 +33,6 @@ html.app-ready #viewport {
   inset: 0;
   overflow: hidden;
   cursor: default;
-  touch-action: none;
   user-select: none;
 }
 
@@ -57,12 +56,14 @@ html.app-ready #viewport {
   position: absolute;
   inset: 0;
   pointer-events: none;
+  touch-action: none;
 }
 
 .image-tile {
   position: absolute;
   line-height: 0;
   pointer-events: auto;
+  touch-action: none;
 }
 
 .image-tile img {
@@ -96,6 +97,12 @@ html.app-ready #viewport {
   color: #3a3a3a;
   z-index: 2;
   pointer-events: none;
+  touch-action: manipulation;
+}
+
+#center-panel a,
+#center-panel button {
+  touch-action: manipulation;
 }
 
 .text-stack {

@@ -979,6 +979,52 @@ function initInteraction() {
   viewport.addEventListener("touchcancel", endTouch);
 }
 
+function initPanelTouches() {
+  const centerPanel = document.getElementById("center-panel");
+  if (!centerPanel) return;
+
+  let panelTouch = null;
+
+  centerPanel.addEventListener(
+    "touchstart",
+    (e) => {
+      const interactive = e.target.closest("a, button");
+      if (!interactive || e.touches.length !== 1) return;
+      panelTouch = {
+        el: interactive,
+        x: e.touches[0].clientX,
+        y: e.touches[0].clientY,
+      };
+      e.stopPropagation();
+    },
+    { capture: true, passive: true }
+  );
+
+  centerPanel.addEventListener(
+    "touchend",
+    (e) => {
+      if (!panelTouch) return;
+      const touch = e.changedTouches[0];
+      const dx = touch.clientX - panelTouch.x;
+      const dy = touch.clientY - panelTouch.y;
+      const el = panelTouch.el;
+      panelTouch = null;
+      e.stopPropagation();
+      if (Math.hypot(dx, dy) >= DRAG_THRESHOLD) return;
+      el.click();
+    },
+    { capture: true, passive: true }
+  );
+
+  centerPanel.addEventListener(
+    "touchcancel",
+    () => {
+      panelTouch = null;
+    },
+    { passive: true }
+  );
+}
+
 function initNav() {
   navButtons.forEach((btn) => {
     btn.addEventListener("click", () => setActiveSection(btn.dataset.section));
@@ -1005,6 +1051,7 @@ async function init() {
   }
   alignTextStack();
   initInteraction();
+  initPanelTouches();
   initLightbox();
   initNav();
   window.addEventListener("resize", onResize);
