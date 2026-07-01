@@ -251,6 +251,7 @@ let panStartX = 0;
 let panStartY = 0;
 
 let isPinching = false;
+let didPinchThisGesture = false;
 let pinchStartDist = 0;
 let lastPinchDist = 0;
 let pinchStartScale = 1;
@@ -548,15 +549,15 @@ function updateZoomLimits() {
   fitScale = Math.min(vw / bw, vh / bh) * 0.94;
   minScale = fitScale * 0.42;
 
-  // Default: center text dominates the viewport; inner images peek at the edges
-  const textWidthFraction = 0.78;
-  const textHeightFraction = 0.72;
+  const isMobile = vw <= 768;
+  const textWidthFraction = isMobile ? 0.94 : 0.78;
+  const textHeightFraction = isMobile ? 0.88 : 0.72;
   defaultScale = Math.min(
     (vw * textWidthFraction) / VOID_WIDTH,
     (vh * textHeightFraction) / VOID_HEIGHT
   );
 
-  maxScale = defaultScale * 1.35;
+  maxScale = defaultScale * (isMobile ? 1.5 : 1.35);
 }
 
 function applyTransform() {
@@ -852,7 +853,13 @@ function touchCenter(touches) {
 
 function initInteraction() {
   function tryOpenTileLightbox() {
-    if (!pointerDownTile || didDrag || !imageLayer.classList.contains("interactive")) {
+    if (
+      !pointerDownTile ||
+      didDrag ||
+      didPinchThisGesture ||
+      isPinching ||
+      !imageLayer.classList.contains("interactive")
+    ) {
       return;
     }
 
@@ -928,8 +935,10 @@ function initInteraction() {
     "touchstart",
     (e) => {
       if (e.touches.length === 2) {
+        didPinchThisGesture = true;
         isDragging = false;
         isPinching = true;
+        pointerDownTile = null;
         pinchStartDist = touchDistance(e.touches);
         lastPinchDist = pinchStartDist;
         pinchStartScale = scale;
@@ -969,10 +978,19 @@ function initInteraction() {
     { passive: false }
   );
 
-  function endTouch() {
+  function endTouch(e) {
+    if (e.touches.length > 0) {
+      if (didPinchThisGesture || isPinching) {
+        pointerDownTile = null;
+        isDragging = false;
+      }
+      return;
+    }
+
     isPinching = false;
     lastPinchDist = 0;
     onPointerUp();
+    didPinchThisGesture = false;
   }
 
   viewport.addEventListener("touchend", endTouch);
