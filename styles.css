@@ -6,12 +6,18 @@
   padding: 0;
 }
 
+:root {
+  --page-bg: #ffffff;
+  --text-readable: #272727;
+  --text-selected: #1a1a1a;
+}
+
 html,
 body {
   width: 100%;
   height: 100%;
   overflow: hidden;
-  background: #ffffff;
+  background: var(--page-bg);
   cursor: default;
   font-family: "Cormorant Garamond", Georgia, "Times New Roman", serif;
   font-weight: 300;
@@ -40,16 +46,19 @@ html.app-ready #viewport {
   cursor: move;
 }
 
+html.lightbox-open #viewport {
+  cursor: default;
+}
+
 #board {
   position: absolute;
   top: 0;
   left: 0;
   width: var(--board-size);
   height: var(--board-size);
-  background: #ffffff;
+  background: var(--page-bg);
   transform-origin: 0 0;
   will-change: transform;
-  cursor: default;
 }
 
 #image-layer {
@@ -57,6 +66,17 @@ html.app-ready #viewport {
   inset: 0;
   pointer-events: none;
   touch-action: none;
+  opacity: 1;
+  transition: opacity 0.38s ease;
+}
+
+#image-layer.gallery-faded {
+  opacity: 0;
+  pointer-events: none;
+}
+
+#image-layer.gallery-faded .image-tile {
+  pointer-events: none;
 }
 
 .image-tile {
@@ -71,7 +91,7 @@ html.app-ready #viewport {
   width: 100%;
   height: auto;
   pointer-events: none;
-  transition: filter 0.35s ease, opacity 0.35s ease;
+  transition: filter 0.35s ease, opacity 0.35s ease, transform 0.4s ease;
 }
 
 #image-layer.interactive:has(.image-tile:hover) .image-tile:not(:hover) img {
@@ -79,9 +99,14 @@ html.app-ready #viewport {
   filter: blur(1px);
 }
 
+#image-layer.interactive .image-tile:hover img {
+  transform: scale(1.02);
+}
+
 #viewport.is-dragging #image-layer .image-tile img {
   opacity: 1;
   filter: none;
+  transform: none;
   transition: none;
 }
 
@@ -90,11 +115,11 @@ html.app-ready #viewport {
   left: 50%;
   top: 50%;
   transform: translateX(-50%);
-  width: min(420px, 80vw);
+  width: min(500px, 88vw);
   height: 0;
   overflow: visible;
   text-align: center;
-  color: #3a3a3a;
+  color: var(--text-readable);
   z-index: 2;
   pointer-events: none;
   touch-action: manipulation;
@@ -123,7 +148,7 @@ html.app-ready #viewport {
   flex-wrap: nowrap;
   gap: 0.55rem;
   margin-bottom: 1.75rem;
-  font-size: 1.05rem;
+  font-size: 1.2rem;
   font-style: italic;
   font-weight: 300;
   flex-shrink: 0;
@@ -134,7 +159,7 @@ html.app-ready #viewport {
   position: relative;
   width: 100%;
   pointer-events: auto;
-  font-size: 1.12rem;
+  font-size: 1.32rem;
   font-weight: 300;
   font-style: italic;
   line-height: 1.75;
@@ -169,7 +194,8 @@ html.app-ready #viewport {
 }
 
 .nav-btn.active {
-  color: #3a3a3a;
+  color: var(--text-selected);
+  font-weight: 400;
 }
 
 .nav-dot {
@@ -191,11 +217,6 @@ html.app-ready #viewport {
   opacity: 0.7;
 }
 
-.contact-email {
-  display: inline-block;
-  margin-top: 1.5rem;
-}
-
 .social-row {
   display: flex;
   align-items: center;
@@ -213,6 +234,10 @@ html.app-ready #viewport {
   transition: opacity 0.2s ease;
 }
 
+.social-link--linkedin {
+  transform: translateY(-1.5px);
+}
+
 .social-row a:hover {
   opacity: 0.55;
 }
@@ -223,12 +248,104 @@ html.app-ready #viewport {
   fill: #3a3a3a;
 }
 
+.explore-hint {
+  margin-top: 1.4rem;
+  font-size: 1.32rem;
+  font-style: italic;
+  font-weight: 300;
+  letter-spacing: 0.01em;
+  line-height: 1.75;
+  color: rgba(39, 39, 39, 0.72);
+  pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.9s ease, visibility 0s linear 0.9s;
+  text-align: center;
+}
+
+@keyframes explore-hint-pulse {
+  0%,
+  100% {
+    opacity: 0.62;
+  }
+
+  50% {
+    opacity: 1;
+  }
+}
+
+.explore-glyph {
+  position: fixed;
+  right: 1.25rem;
+  bottom: 1.25rem;
+  z-index: 50;
+  width: 24px;
+  height: 24px;
+  color: rgba(58, 58, 58, 0.55);
+  pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+
+.explore-glyph svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+html.explore-hints-visible .explore-hint,
+html.explore-hints-visible .explore-glyph {
+  visibility: visible;
+}
+
+html.explore-hints-visible .explore-hint {
+  animation: explore-hint-pulse 2.6s ease-in-out infinite;
+}
+
+html.explore-hints-visible .explore-glyph {
+  opacity: 1;
+}
+
+html.explore-hints-hiding .explore-hint,
+html.explore-hints-hiding .explore-glyph {
+  visibility: visible;
+}
+
+html.explore-hints-dismissed .explore-hint,
+html.explore-hints-dismissed .explore-glyph {
+  opacity: 0;
+  visibility: hidden;
+  animation: none;
+}
+
+html.lightbox-open .explore-hint,
+html.lightbox-open .explore-glyph {
+  opacity: 0;
+  visibility: hidden;
+  animation: none;
+  transition: opacity 0.9s ease, visibility 0s linear 0.9s;
+}
+
+@media (max-width: 768px) {
+  .explore-hint {
+    max-width: 92vw;
+  }
+
+  .explore-glyph {
+    right: 1rem;
+    bottom: 1rem;
+    width: 20px;
+    height: 20px;
+  }
+}
+
 html.lightbox-open {
   overflow: hidden;
 }
 
 #image-layer.interactive .image-tile {
-  cursor: zoom-in;
+  cursor: default;
 }
 
 .lightbox {
@@ -239,7 +356,7 @@ html.lightbox-open {
   align-items: center;
   justify-content: center;
   padding: 2rem;
-  background: #ffffff;
+  background: var(--page-bg);
   opacity: 0;
   visibility: hidden;
   overflow: hidden;
@@ -247,8 +364,15 @@ html.lightbox-open {
   transition: opacity 0.45s ease, visibility 0.45s ease;
 }
 
+.lightbox__content {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .lightbox.lightbox--series {
-  align-items: flex-start;
+  align-items: center;
   overflow-y: auto;
   scrollbar-width: none;
   -ms-overflow-style: none;
@@ -268,15 +392,8 @@ html.lightbox-open {
   visibility: visible;
 }
 
-.lightbox__content {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
 .lightbox--series .lightbox__content {
-  gap: 2.5rem;
+  gap: 3rem;
   padding: 1rem 0 3rem;
 }
 
@@ -284,30 +401,52 @@ html.lightbox-open {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   width: 100%;
   max-width: calc(100vw - 4rem);
+  margin: 0 auto;
+  box-sizing: border-box;
 }
 
-.lightbox__piece img {
+.lightbox--series .lightbox__piece {
+  min-height: calc(100vh - 8rem);
+}
+
+.lightbox__media {
+  display: table;
+  width: auto;
+  max-width: calc(100vw - 4rem);
+  margin: 0 auto;
+  border-collapse: collapse;
+}
+
+.lightbox__media img {
   display: block;
-  max-width: 100%;
-  max-height: calc(100vh - 4rem);
+  max-width: calc(100vw - 4rem);
+  max-height: calc(100vh - 10rem);
   width: auto;
   height: auto;
   object-fit: contain;
-  cursor: zoom-out;
+  cursor: default;
+}
+
+.lightbox__media:has(.lightbox__caption) img {
+  max-height: calc(100vh - 14rem);
 }
 
 .lightbox__caption {
-  margin-top: 1.1rem;
-  max-width: 36rem;
-  padding: 0 1rem;
+  display: table-caption;
+  caption-side: bottom;
+  padding-top: 1.25rem;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
   font-size: 1.05rem;
   font-weight: 300;
   font-style: italic;
   line-height: 1.7;
   letter-spacing: 0.01em;
-  color: #3a3a3a;
+  color: var(--text-readable);
   text-align: center;
 }
 
@@ -316,12 +455,30 @@ html.lightbox-open {
     transition: none;
   }
 
+  #image-layer {
+    transition: none;
+  }
+
+  .explore-hint,
+  .explore-glyph {
+    transition: none;
+  }
+
+  html.explore-hints-visible .explore-hint {
+    animation: none;
+    opacity: 0.82;
+  }
+
   .nav-btn {
     transition: none;
   }
 
   .image-tile img {
     transition: none;
+  }
+
+  #image-layer.interactive .image-tile:hover img {
+    transform: none;
   }
 
   #image-layer.interactive:has(.image-tile:hover) .image-tile:not(:hover) img {
